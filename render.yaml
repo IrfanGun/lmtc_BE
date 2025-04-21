@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: laravel-api
+    env: php
+    plan: free
+    branch: main
+    buildCommand: |
+      composer install --no-dev --optimize-autoloader
+      php artisan config:cache
+    startCommand: php artisan serve --host 0.0.0.0 --port 10000
+    autoDeploy: true
+    pullRequestPreviewsEnabled: true
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_DEBUG
+        value: false
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        value: hopkinsfoundation-members.com 
+      - key: DB_PORT
+        value: 3306
+      - key: DB_DATABASE
+        value: hopkins_db
+      - key: DB_USERNAME
+        value: hopkins_dev
+      - key: DB_PASSWORD
+        value: 92S7,X24XWSz
+
