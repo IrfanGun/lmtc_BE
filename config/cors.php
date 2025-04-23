@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://lmct-fe.vercel.app'],
+    'allowed_origins' => ['https://lmtcbe-production.up.railway.app', 'http://localhost:3000', 'https://lmct-fe.vercel.app'],
 
     'allowed_origins_patterns' => [],
 
