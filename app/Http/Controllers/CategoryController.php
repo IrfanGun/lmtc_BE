@@ -53,7 +53,7 @@ class CategoryController extends Controller
                 ]);
             });
             
-            return response()->json(['data' => $category], 201);
+            return response()->json( [$category], 201);
            
         } catch (\Throwable $th) {
             return response()->json(['message' => 'Error creating category', 'error' => $th], 500);
