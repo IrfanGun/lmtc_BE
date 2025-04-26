@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Resources\CategoryResource;
 
 class CategoryController extends Controller
 {
@@ -14,8 +15,8 @@ class CategoryController extends Controller
     public function index()
     {
 
-        $categories = Category::all();
-        return response()->json(['data' => $categories], 200);
+        $categories = Category::with('subCategory')->get();
+        return response()->json( CategoryResource::collection($categories));
 
     }
 
@@ -87,44 +88,51 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
         // 
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
         ]);
 
-        // Check if the category already exists
-        $existingCategory = Category::where('name', $request->name)->first();
-        if ($existingCategory && $existingCategory->id != $category->id) {
-            return response()->json(['message' => 'Category already exists'], 409);
-        }
         try {
-            $category->update([
-                'name' => $request->name,
-                'is_featured' => $request->is_featured ?? false,
-            ]);
-            return response()->json(['data' => $category], 200);
+            DB::transaction(function () use ($id, $validated) {
+            // Find the category
+            $category = Category::findOrFail($id);
+
+            // Update the category name
+            $category->name = $validated['name'];
+            $category->save();
+            });
+
+            return response()->json([
+            'message' => 'Category updated successfully',
+            ], 200);
         } catch (\Throwable $th) {
-            return response()->json(['message' => 'Error updating category', 'error' => $th], 500);
+            return response()->json([
+            'message' => 'Error updating category',
+            'error' => $th->getMessage(),
+            ], 500);
         }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+       
         try {
-            // Check if the category exists
+      
+            
+            $category = Category::findOrFail($id);
             if (!$category) {
                 return response()->json(['message' => 'Category not found'], 404);
             }
-            
+    
             $category->delete();
-            
             return response()->json(['message' => 'Category deleted successfully'], 200);
+
         } catch (\Throwable $th) {
             return response()->json(['message' => 'Error deleting category', 'error' => $th], 500);
         }

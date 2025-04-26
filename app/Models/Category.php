@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\belongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\SubCategory;
 
 class Category extends Model
 {
@@ -21,10 +23,12 @@ class Category extends Model
         'is_featured' => 'boolean',
     ];
 
-    public function category () : belongsTo
+    public function subCategory () : HasMany
     {
-        return $this->belongsTo(Category::class, 'category_id');
+        return $this->hasMany(SubCategory::class, 'category_id','id'
+        );
     }
+   
 
     //
 }
