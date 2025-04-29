@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\User;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Role extends Model
 {
-    
+    use SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *

@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:3000','https://lmct-fe.vercel.app', 'https://hopkinsfoundation-members.com'],
+    'allowed_origins' => ['http://localhost:3000','https://lmct-fe.vercel.app', 'https://hopkinsfoundation-members.com','https://hopkins-fe.vercel.app' ],
 
     'allowed_origins_patterns' => [],
 

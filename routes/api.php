@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\StatesController;
+use App\Http\Controllers\ProductController;
+
 
 // Route::get('/user', function (Request $request) {
     
@@ -27,3 +30,20 @@ Route::prefix('subcategory')->group(function () {
     Route::put('/{id}', [SubCategoryController::class, 'update']);
     Route::delete('/{id}', [SubCategoryController::class, 'destroy']);
 });
+
+Route::prefix('states')->group(function () {
+    Route::get('/', [StatesController::class, 'index']);
+    Route::get('/{id}', [StatesController::class, 'show']);
+    Route::post('/', [StatesController::class, 'store']);
+    Route::put('/{id}', [StatesController::class, 'update']);
+    Route::delete('/{id}', [StatesController::class, 'destroy']);
+});
+
+Route::prefix('product')->group(function () {
+    Route::get('/', [ProductController::class, 'index']);
+    Route::get('/{id}', [ProductController::class, 'show']);
+    Route::post('/', [ProductController::class, 'store']);
+    Route::put('/{id}', [ProductController::class, 'update']);
+    Route::delete('/{id}', [ProductController::class, 'destroy']);
+});
+

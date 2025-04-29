@@ -23,6 +23,11 @@ class Category extends Model
         'is_featured' => 'boolean',
     ];
 
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class, 'category_id', 'id');
+    }
+
     public function subCategory () : HasMany
     {
         return $this->hasMany(SubCategory::class, 'category_id','id'

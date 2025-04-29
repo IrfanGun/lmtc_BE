@@ -13,7 +13,7 @@ class StatesController extends Controller
     public function index()
     {
         $states = States::all();
-        return response()->json(['data' => $states], 200);
+        return response()->json($states);
 
     }
 
